@@ -6,6 +6,7 @@ import Button from "components/Button";
 import Input from "components/Input";
 import Form from "components/Form";
 import { LayoutSmall } from "components/Layout";
+import { SpeechBubble } from "react-kawaii";
 
 const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -40,7 +41,7 @@ export default function Login(props: any) {
           }
         }}
       >
-        <img alt="logo" src="/logo192.png" />
+        <SpeechBubble size={80} mood="happy" color="#83D1FB" />
         <Input
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCredentials({

@@ -20,7 +20,8 @@ export const FormContainer = styled.form`
   }
 
   h1,
-  a {
+  a,
+  div {
     text-align: center;
   }
 `;
