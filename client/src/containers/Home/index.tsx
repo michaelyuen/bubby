@@ -1,23 +1,23 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import Chat from "components/Chat";
 import Copyright from "components/Copyright";
 import { LayoutLarge } from "components/Layout";
-import Button from "components/Button";
+// import Button from "components/Button";
 
 export default function NavTabs() {
-  const history = useHistory();
+  // const history = useHistory();
 
   return (
     <LayoutLarge>
       <Chat />
-      <Button
+      {/* <Button
         onClick={() => {
           history.push("/login");
         }}
       >
         Logout
-      </Button>
+      </Button> */}
       <Copyright />
     </LayoutLarge>
   );

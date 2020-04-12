@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Toast {...data} />
       <Router>
         <Switch>
-          <Route path="/" exact component={Login} />
+          <Route path="/" exact component={Home} />
           <Route path="/dashboard" exact component={Home} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" component={SignUp} />
