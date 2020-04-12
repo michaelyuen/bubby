@@ -76,7 +76,7 @@ class FirebaseAdmin extends DataSource {
       const dbUser = await this.db.doc(`users/${this.context.user.uid}`).get();
       return {
         ...dbUser.data(),
-        posts: [{ comment: "TODO", author: "sue" }],
+        messages: [{ message: "TODO", author: "sue" }],
       };
     } catch (error) {
       console.error(error);

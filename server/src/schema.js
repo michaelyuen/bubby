@@ -5,7 +5,7 @@ const typeDefs = gql`
     currentUser: User
     sendEmailVerification: String
     sendPasswordResetEmail(email: String!): String
-    posts: [Post]
+    messages: [Message]
   }
 
   type Mutation {
@@ -29,9 +29,9 @@ const typeDefs = gql`
     lastName: String!
   }
 
-  type Post {
+  type Message {
     author: String
-    comment: String
+    message: String
   }
 `;
 

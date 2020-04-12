@@ -2,18 +2,14 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Subscription {
-    postAdded: Post
-  }
-
-  type Query {
-    posts: [Post]
+    messageAdded: Message
   }
 
   type Mutation {
-    addPost(author: String, comment: String): Post
+    addMessage(author: String, comment: String): Message
   }
 
-  type Post {
+  type Message {
     author: String
     comment: String
   }

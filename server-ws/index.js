@@ -1,7 +1,7 @@
 const { ApolloServer } = require("apollo-server");
 const resolvers = require("./resolvers");
 const typeDefs = require("./typeDefs");
-// const { context, dataSources } = require("../server/src/lambda/graphql");
+const { shared } = require("../server/src/lambda/graphql");
 
 const validateToken = (authToken) => {
   // ... validate token and return a Promise, rejects in case of an error
@@ -16,19 +16,8 @@ const findUser = (authToken) => {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context,
-  // dataSources,
-  context: async ({ req, connection }) => {
-    if (connection) {
-      // check connection for metadata
-      return connection.context;
-    } else {
-      // check from req
-      const token = req.headers.authorization || "";
-
-      return { token };
-    }
-  },
+  dataSources: shared.dataSources,
+  context: shared.context,
   subscriptions: {
     onConnect: (connectionParams, webSocket, context) => {
       console.log("Connected to the websocket");

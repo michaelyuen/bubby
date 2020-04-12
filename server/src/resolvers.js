@@ -9,8 +9,9 @@ const resolvers = {
     },
     sendPasswordResetEmail: async (_, { email }) =>
       firebaseClient.sendPasswordResetEmail(email),
-    posts: async (_, args, { dataSources: { firebaseClient } }) =>
-      firebaseClient.getPosts(),
+    messages: async (_, args, { dataSources: { firebaseClient } }) => {
+      return firebaseClient.messages();
+    },
   },
   Mutation: {
     confirmPasswordReset: async (

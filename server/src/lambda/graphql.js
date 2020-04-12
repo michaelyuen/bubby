@@ -34,7 +34,6 @@ const dataSources = () => ({
   firebaseAdmin: new FirebaseAdmin({ admin }),
   firebaseClient: new FirebaseClient({ firebase }),
 });
-
 const context = async (req) => {
   try {
     const token = parseToken(req);
@@ -73,4 +72,4 @@ exports.handler = server.createHandler({
   },
 });
 
-module.exports = { dataSources, context };
+exports.shared = { dataSources, context };
