@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { fontSmall } from "style/themeFunctions";
 
 export const CopyrightContainer = styled.footer`
-  bottom: 0;
+  bottom: 15px;
   font-size: ${fontSmall};
   font-weight: bold;
   left: 0;
