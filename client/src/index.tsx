@@ -15,17 +15,19 @@ import * as serviceWorker from "./serviceWorker";
 import "modern-normalize/modern-normalize.css";
 
 const isProduction = process.env.NODE_ENV === "production";
+// const APi = "http://localhost:9000";
+const API = "http://localhost:4000/";
 
 // Create an http link:
 const httpLink = new HttpLink({
   uri: `${
-    isProduction ? "https://bubby-apollo.netlify.com" : "http://localhost:9000"
+    isProduction ? "https://bubby-apollo.netlify.com" : API
   }/.netlify/functions/graphql`
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:5000/subscriptions`,
+  uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true
   }

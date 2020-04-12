@@ -10,12 +10,12 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addMessage(author: String, comment: String): Message
+    addMessage(author: String, message: String): Message
   }
 
   type Message {
     author: String
-    comment: String
+    message: String
   }
 `;
 

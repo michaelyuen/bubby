@@ -13,7 +13,7 @@ const resolvers = {
   Mutation: {
     addMessage: async (_, args, { dataSources: { firebaseAdmin } }) => {
       pubsub.publish(MESSAGE_ADDED, { messageAdded: args });
-      return firebaseAdmin.addMessage(args);
+      // return firebaseAdmin.addMessage(args);
     },
   },
 };
