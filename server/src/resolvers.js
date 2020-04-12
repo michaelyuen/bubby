@@ -1,13 +1,12 @@
-const { PubSub } = require("apollo-server-lambda");
+const { PubSub } = require("graphql-subscriptions");
 
 const pubsub = new PubSub();
 
 const resolvers = {
   Subscription: {
     postAdded: {
-      // Additional event labels can be passed to asyncIterator creation
-      subscribe: () => pubsub.asyncIterator([POST_ADDED])
-    }
+      subscribe: () => pubsub.asyncIterator([POST_ADDED]),
+    },
   },
   Query: {
     currentUser: async (_, __, { dataSources: { firebaseAdmin } }) =>
@@ -24,7 +23,7 @@ const resolvers = {
     ) => firebaseClient.sendPasswordResetEmail(email),
     posts(root, args, context) {
       return postController.posts();
-    }
+    },
   },
   Mutation: {
     addPost(root, args, context) {
@@ -52,8 +51,8 @@ const resolvers = {
       _,
       { code },
       { dataSources: { firebaseClient } }
-    ) => firebaseClient.verifyPasswordResetCode(code)
-  }
+    ) => firebaseClient.verifyPasswordResetCode(code),
+  },
 };
 
 module.exports = resolvers;
