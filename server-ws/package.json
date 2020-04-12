@@ -1,0 +1,32 @@
+{
+  "name": "bubby-server",
+  "version": "0.1.0",
+  "description": "Bubby Apollo Websockets Server",
+  "keywords": [
+    "apollo",
+    "graphql",
+    "graphql-subscriptions",
+    "bubby",
+    "chat"
+  ],
+  "license": "MIT",
+  "contributors": [
+    "Sue Ann Ioanis <sueann.ioanis@gmail.com>",
+    "Michael Yuen <iam@mikey.baby>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tumfoodery/tripster.git"
+  },
+  "main": "src/lambda/graphql.js",
+  "scripts": {
+    "build": "node index.js",
+    "clean": "rm -rf dist",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "graphql": "^15.0.0"
+  }
+}
