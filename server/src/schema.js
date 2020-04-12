@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-lambda");
 
 const typeDefs = gql`
   type Subscription {
-    postAdded: Post
+    posts: [Post]
   }
 
   type Query {

@@ -13,7 +13,7 @@ In the project directory, you can run:
 ### `npm start` 🚀
 
 Runs the Playground.<br />
-Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+Open [http://localhost:9000/.netlify/functions/graphql](http://localhost:9000/.netlify/functions/graphql) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any errors in the console.
