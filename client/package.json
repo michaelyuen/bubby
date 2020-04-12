@@ -1,11 +1,29 @@
 {
-  "name": "bubbt-client",
+  "name": "bubby-client",
+  "version": "0.1.0",
+  "description": "Bubby React App",
+  "keywords": [
+    "bubby",
+    "chat",
+    "react",
+    "ssr"
+  ],
+  "license": "MIT",
   "contributors": [
     "Sue Ann Ioanis <sueann.ioanis@gmail.com>",
     "Michael Yuen <iam@mikey.baby>"
   ],
-  "version": "0.1.0",
-  "description": "Bubby React App",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tumfoodery/tripster.git"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
     "@types/react-kawaii": "^0.11.0",
@@ -19,12 +37,22 @@
     "react-toast-component": "1.3.17",
     "styled-components": "^5.0.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.3.9",
+    "@storybook/addon-docs": "^5.3.9",
+    "@storybook/addon-links": "^5.3.9",
+    "@storybook/addons": "^5.3.9",
+    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/react": "^5.3.9",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/styled-components": "^4.4.2",
+    "prettier": "^1.19.1",
+    "react-scripts": "3.3.0",
+    "typescript": "^3.7.5"
   },
   "eslintConfig": {
     "rules": {
@@ -50,29 +78,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^5.3.9",
-    "@storybook/addon-docs": "^5.3.9",
-    "@storybook/addon-links": "^5.3.9",
-    "@storybook/addons": "^5.3.9",
-    "@storybook/preset-create-react-app": "^1.5.2",
-    "@storybook/react": "^5.3.9",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
-    "@types/react-router-dom": "^5.1.3",
-    "@types/styled-components": "^4.4.2",
-    "prettier": "^1.19.1",
-    "react-scripts": "3.3.0",
-    "typescript": "^3.7.5"
-  },
-  "keywords": [
-    "bubby",
-    "chat",
-    "react",
-    "ssr"
-  ],
-  "license": "MIT"
+  }
 }
