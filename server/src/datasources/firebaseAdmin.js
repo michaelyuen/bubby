@@ -68,7 +68,7 @@ class FirebaseAdmin extends DataSource {
     }
   }
 
-  async getPosts() {
+  async getMessages() {
     if (!this.context.user) {
       return null;
     }

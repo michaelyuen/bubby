@@ -10,7 +10,7 @@ const resolvers = {
     sendPasswordResetEmail: async (_, { email }) =>
       firebaseClient.sendPasswordResetEmail(email),
     messages: async (_, args, { dataSources: { firebaseClient } }) => {
-      return firebaseClient.messages();
+      return firebaseClient.getMessages();
     },
   },
   Mutation: {
