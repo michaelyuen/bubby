@@ -41,7 +41,6 @@ export default function SignUp() {
           }
         }}
       >
-        <h1>🏕</h1>
         <Input
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCredentials({

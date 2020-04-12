@@ -4,8 +4,8 @@ const pubsub = new PubSub();
 
 const resolvers = {
   Subscription: {
-    postAdded: {
-      subscribe: () => pubsub.asyncIterator([POST_ADDED]),
+    posts: {
+      subscribe: () => pubsub.asyncIterator([POST]),
     },
   },
   Query: {
