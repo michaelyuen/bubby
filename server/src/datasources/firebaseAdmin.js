@@ -2,7 +2,7 @@ const { DataSource } = require("apollo-datasource");
 const {
   ApolloError,
   AuthenticationError,
-  ForbiddenError
+  ForbiddenError,
 } = require("apollo-server-lambda");
 
 class FirebaseAdmin extends DataSource {
@@ -29,7 +29,7 @@ class FirebaseAdmin extends DataSource {
         email,
         firstName,
         lastName,
-        uid
+        uid,
       });
       return "🛸";
     } catch (error) {
@@ -60,7 +60,23 @@ class FirebaseAdmin extends DataSource {
       const dbUser = await this.db.doc(`users/${this.context.user.uid}`).get();
       return {
         ...dbUser.data(),
-        emailVerified: this.context.user.emailVerified
+        emailVerified: this.context.user.emailVerified,
+      };
+    } catch (error) {
+      console.error(error);
+      throw new ApolloError(error.message);
+    }
+  }
+
+  async getPosts() {
+    if (!this.context.user) {
+      return null;
+    }
+    try {
+      const dbUser = await this.db.doc(`users/${this.context.user.uid}`).get();
+      return {
+        ...dbUser.data(),
+        posts: this.context.user.posts,
       };
     } catch (error) {
       console.error(error);

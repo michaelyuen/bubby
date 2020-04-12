@@ -1,10 +1,6 @@
 const { gql } = require("apollo-server-lambda");
 
 const typeDefs = gql`
-  type Subscription {
-    posts: [Post]
-  }
-
   type Query {
     currentUser: User
     sendEmailVerification: String
@@ -24,7 +20,6 @@ const typeDefs = gql`
     ): String
     verifyEmail(code: String!): String
     verifyPasswordResetCode(code: String!): String
-    addPost(author: String, comment: String): Post
   }
 
   type User {
