@@ -1,4 +1,4 @@
-# 🛎️ bubby client - built on react
+# 💬 bubby client - built on react
 
 ## Available Scripts
 
