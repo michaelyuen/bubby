@@ -20,22 +20,22 @@ const firebaseConfig = {
   storageBucket: env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID,
   appId: env.FIREBASE_APP_ID,
-  measurementId: env.FIREBASE_MEASUREMENT_ID
+  measurementId: env.FIREBASE_MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
+  databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
 });
 
 const dataSources = () => ({
   firebaseAdmin: new FirebaseAdmin({ admin }),
-  firebaseClient: new FirebaseClient({ firebase })
+  firebaseClient: new FirebaseClient({ firebase }),
 });
 
-const context = async req => {
+const context = async (req) => {
   try {
     const token = parseToken(req);
 
@@ -63,12 +63,14 @@ const server = new ApolloServer({
   context,
   // TODO: Make these ENV specific
   playground: true,
-  introspection: true
+  introspection: true,
 });
 
 exports.handler = server.createHandler({
   cors: {
     origin: "*",
-    credentials: true
-  }
+    credentials: true,
+  },
 });
+
+module.exports = { dataSources, context };
