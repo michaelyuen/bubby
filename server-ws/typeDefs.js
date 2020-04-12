@@ -5,6 +5,10 @@ const typeDefs = gql`
     messageAdded: Message
   }
 
+  type Query {
+    messages: [Message]
+  }
+
   type Mutation {
     addMessage(author: String, comment: String): Message
   }

@@ -18,7 +18,7 @@
     "type": "git",
     "url": "https://github.com/tumfoodery/tripster.git"
   },
-  "main": "src/lambda/graphql.js",
+  "main": "index.js",
   "scripts": {
     "build": "node index.js",
     "clean": "rm -rf dist",

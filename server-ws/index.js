@@ -21,19 +21,6 @@ const server = new ApolloServer({
   subscriptions: {
     onConnect: (connectionParams, webSocket, context) => {
       console.log("Connected to the websocket");
-      // if (connectionParams.authToken) {
-      //   return validateToken(connectionParams.authToken)
-      //     .then(findUser(connectionParams.authToken))
-      //     .then((user) => {
-      //       return {
-      //         currentUser: user,
-      //       };
-      //     });
-      // }
-      // throw new Error("Missing auth token!");
-    },
-    onDisconnect: (webSocket, context) => {
-      // ...
     },
   },
 });

@@ -36,7 +36,7 @@ const dataSources = () => ({
 });
 const context = async (req) => {
   try {
-    const token = parseToken(req);
+    const token = req && parseToken(req);
 
     if (!token) {
       return null;
