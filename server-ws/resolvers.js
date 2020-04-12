@@ -1,4 +1,4 @@
-const POST_ADDED = "POST_ADDED";
+const MESSAGE_ADDED = "MESSAGE_ADDED";
 
 const { PubSub } = require("apollo-server");
 
@@ -6,14 +6,14 @@ const pubsub = new PubSub();
 
 const resolvers = {
   Subscription: {
-    postAdded: {
-      subscribe: () => pubsub.asyncIterator([POST_ADDED]),
+    messageAdded: {
+      subscribe: () => pubsub.asyncIterator([MESSAGE_ADDED]),
     },
   },
   Mutation: {
-    addPost(root, args, context) {
-      pubsub.publish(POST_ADDED, { postAdded: args });
-      return postController.addPost(args);
+    addMessage: async (_, args, { dataSources: { firebaseAdmin } }) => {
+      pubsub.publish(MESSAGE_ADDED, { messageAdded: args });
+      return firebaseAdmin.addMessage(args);
     },
   },
 };
