@@ -15,6 +15,7 @@ export const theme: DefaultTheme = {
   },
   grid: {
     maxWidth: "1600px",
+    width: "800px",
     fullPageFormWidth: "90%"
   },
   spacing: {

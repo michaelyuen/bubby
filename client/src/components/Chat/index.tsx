@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { useMutation, useSubscription } from "@apollo/react-hooks";
 import Input from "components/Input";
 import Button from "components/Button";
-import { LayoutLarge } from "components/Layout";
 import Message from "components/Message";
 import { noop } from "utils/fn";
 import ChatContainer from "./style";
@@ -51,21 +50,18 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <LayoutLarge>
-      <ChatContainer className="ChatContainer">
-        <h1>What's yo name?</h1>
-        <Input
-          onChange={onChange}
-          placeholder="cough it up..."
-          style={{ width: "200px" }}
-        />
-        <h1>Messages:</h1>
-        <article className="ChatContainer__message-container">
-          {renderMessages()}
-        </article>
-        <MemoInputContainer name={name} />
-      </ChatContainer>
-    </LayoutLarge>
+    <ChatContainer className="ChatContainer">
+      <h1>What's yo name?</h1>
+      <Input
+        onChange={onChange}
+        placeholder="cough it up..."
+        style={{ width: "200px", marginBottom: "40px" }}
+      />
+      <article className="ChatContainer__message-container">
+        {renderMessages()}
+      </article>
+      <MemoInputContainer name={name} />
+    </ChatContainer>
   );
 };
 

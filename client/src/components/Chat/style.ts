@@ -3,8 +3,7 @@ import styled from "styled-components";
 const ChatContainer = styled.div`
   .ChatContainer {
     &__message-container {
-      background: lavender;
-      border: 1px solid black;
+      border: 1px solid lightgrey;
       height: 500px;
       margin-bottom: 25px;
       padding: 50px;
