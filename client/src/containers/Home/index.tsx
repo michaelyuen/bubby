@@ -1,24 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Chat from "components/Chat";
 import Copyright from "components/Copyright";
-import { LayoutLarge } from "components/Layout";
-import Button from "components/Button";
+import { LayoutMedium } from "components/Layout";
 
 export default function NavTabs() {
-  const history = useHistory();
-
   return (
-    <LayoutLarge>
+    <LayoutMedium>
       <Chat />
-      <Button
-        onClick={() => {
-          history.push("/login");
-        }}
-      >
-        Logout
-      </Button>
       <Copyright />
-    </LayoutLarge>
+    </LayoutMedium>
   );
 }

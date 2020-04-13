@@ -15,6 +15,7 @@ export const fontMedium = (props: Props) => props.theme.font.medium;
 export const fontSmall = (props: Props) => props.theme.font.small;
 export const gridFullPageFormWidth = (props: Props) =>
   props.theme.grid.fullPageFormWidth;
+export const gridWidth = (props: Props) => props.theme.grid.width;
 export const gridMaxWidth = (props: Props) => props.theme.grid.maxWidth;
 export const spacingBorder = (props: Props) => props.theme.spacing.border;
 export const spacingBorderRadius = (props: Props) =>

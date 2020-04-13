@@ -1,13 +1,4 @@
-const { PubSub } = require("graphql-subscriptions");
-
-const pubsub = new PubSub();
-
 const resolvers = {
-  Subscription: {
-    postAdded: {
-      subscribe: () => pubsub.asyncIterator([POST_ADDED]),
-    },
-  },
   Query: {
     currentUser: async (_, __, { dataSources: { firebaseAdmin } }) =>
       firebaseAdmin.getCurrentUser(),
@@ -16,20 +7,13 @@ const resolvers = {
       const customToken = await firebaseAdmin.getCustomToken();
       return firebaseClient.sendEmailVerification(customToken);
     },
-    sendPasswordResetEmail: async (
-      _,
-      { email },
-      { dataSources: { firebaseClient } }
-    ) => firebaseClient.sendPasswordResetEmail(email),
-    posts(root, args, context) {
-      return postController.posts();
+    sendPasswordResetEmail: async (_, { email }) =>
+      firebaseClient.sendPasswordResetEmail(email),
+    messages: async (_, args, { dataSources: { firebaseClient } }) => {
+      return firebaseClient.getMessages();
     },
   },
   Mutation: {
-    addPost(root, args, context) {
-      pubsub.publish(POST_ADDED, { postAdded: args });
-      return postController.addPost(args);
-    },
     confirmPasswordReset: async (
       _,
       { code, newPassword },

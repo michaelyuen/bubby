@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from "react";
-import { gql } from "apollo-boost";
+import gql from "graphql-tag";
 import { useLazyQuery } from "@apollo/react-hooks";
 import Input from "components/Input";
 import Form from "components/Form";
