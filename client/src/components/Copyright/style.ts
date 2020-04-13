@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { fontSmall } from "style/themeFunctions";
+import { fontSmall, spacingDefault } from "style/themeFunctions";
 
 export const CopyrightContainer = styled.footer`
-  bottom: 15px;
   font-size: ${fontSmall};
   font-weight: bold;
   left: 0;
-  margin: auto;
-  position: absolute;
+  margin: ${spacingDefault} auto 0;
   right: 0;
   text-align: center;
 `;
