@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
@@ -16,18 +15,18 @@ import "modern-normalize/modern-normalize.css";
 
 const isProduction = process.env.NODE_ENV === "production";
 // const APi = "http://localhost:9000";
-const API = "http://localhost:4000/";
+const API = "://localhost:4000/";
 
 // Create an http link:
 const httpLink = new HttpLink({
   uri: `${
-    isProduction ? "https://bubby-apollo.netlify.com" : API
+    isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
   }/.netlify/functions/graphql`
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: `ws${API}graphql`,
   options: {
     reconnect: true
   }
@@ -47,13 +46,6 @@ const link = split(
   wsLink,
   httpLink
 );
-
-// const client = new ApolloClient({
-//   uri: `${
-//     isProduction ? "https://bubby-apollo.netlify.com" : "http://localhost:9000"
-//   }/.netlify/functions/graphql`,
-//   cache: new InMemoryCache()
-// });
 
 const client = new ApolloClient({
   link: ApolloLink.from([
