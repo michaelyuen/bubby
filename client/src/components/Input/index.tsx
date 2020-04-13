@@ -8,6 +8,9 @@ interface Props {
   onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
+  style?: {
+    [key: string]: string;
+  };
   type?: string;
   value?: string;
 }

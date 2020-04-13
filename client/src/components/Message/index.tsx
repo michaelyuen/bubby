@@ -7,7 +7,7 @@ type Props = {
 
 const Message: React.FC<Props> = ({ author, message }) => {
   return (
-    <div>
+    <div style={{ marginBottom: "10px" }}>
       <strong>{author}:</strong>&nbsp;<span>{message}</span>
     </div>
   );

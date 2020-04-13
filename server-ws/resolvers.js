@@ -1,4 +1,4 @@
-const MESSAGE_ADDED = "MESSAGE_ADDED";
+const MESSAGE_ADDED = "messageAdded";
 
 const { PubSub } = require("apollo-server");
 
@@ -12,7 +12,7 @@ const resolvers = {
   },
   Mutation: {
     addMessage: async (_, args, { dataSources: { firebaseAdmin } }) => {
-      pubsub.publish(MESSAGE_ADDED, { messageAdded: args });
+      pubsub.publish(MESSAGE_ADDED, { [MESSAGE_ADDED]: args });
       // return firebaseAdmin.addMessage(args);
     },
   },
