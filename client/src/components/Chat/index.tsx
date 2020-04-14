@@ -34,7 +34,6 @@ const Chat: React.FC = () => {
 
   if (data?.messageAdded && data.messageAdded.message !== lastMessage) {
     const { author, message } = data.messageAdded;
-    console.log(author, message);
     setMessages([...messages, ...[{ author, message }]]);
     lastMessage = message;
   }
@@ -81,8 +80,6 @@ type Props = {
 const InputContainer: React.FC<Props> = ({ name }) => {
   const [value, setValue] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
-
-  console.log(name);
 
   const onChange = ({
     target: { value }

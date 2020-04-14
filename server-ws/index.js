@@ -1,6 +1,6 @@
 const { ApolloServer } = require("apollo-server");
 const resolvers = require("./resolvers");
-const typeDefs = require("./typeDefs");
+const typeDefs = require("./schema");
 const { shared } = require("../server/src/lambda/graphql");
 
 const validateToken = (authToken) => {
@@ -20,12 +20,12 @@ const server = new ApolloServer({
   context: shared.context,
   subscriptions: {
     onConnect: (connectionParams, webSocket, context) => {
-      console.log("Connected to the websocket");
+      console.log("Connected to the websocket 🔌");
     },
   },
 });
 
 server.listen().then(({ url, subscriptionsUrl }) => {
-  console.log(`🚀 Server ready at ${url}`);
-  console.log(`🚀 Subscriptions ready at ${subscriptionsUrl}`);
+  console.log(`Server ready at ${url} 🚀`);
+  console.log(`Subscriptions ready at ${subscriptionsUrl} 🚀`);
 });
