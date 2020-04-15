@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import {
   spacingDefault,
-  colorSecondary,
   colorBackground,
   colorText,
-  fontMedium
+  fontMedium,
 } from "style/themeFunctions";
 
 export const InputContainer = styled.label`
   font-size: ${fontMedium};
   input {
     border: none;
-    border-bottom: 1px solid ${colorSecondary};
+    border-bottom: 1px solid grey;
     background: transparent;
     box-shadow: 0 0 0 1000px ${colorBackground} inset;
     -webkit-box-shadow: 0 0 0px 1000px ${colorBackground} inset;

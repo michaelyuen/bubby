@@ -14,7 +14,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import "modern-normalize/modern-normalize.css";
 
-const isProduction = process.env.NODE_ENV === "production";
+// const isProduction = process.env.NODE_ENV === "production";
 // const APi = "http://localhost:9000";
 const API = "http://localhost:9001";
 
@@ -23,15 +23,15 @@ const httpLink = new HttpLink({
   // uri: `${
   //   isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
   // }/.netlify/functions/graphql`
-  uri: API
+  uri: API,
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
 // using the ability to split links, you can send data to each link
@@ -60,9 +60,9 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    link
+    link,
   ]),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 // const client = new ApolloClient({

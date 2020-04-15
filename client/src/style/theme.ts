@@ -11,23 +11,23 @@ export const theme: DefaultTheme = {
     link: "#000",
     buttonText: "#fffffe",
     text: darkMode ? "#FFFFFF" : "#000",
-    secondary: "#000"
+    secondary: "#000",
   },
   grid: {
     maxWidth: "1600px",
     width: "800px",
-    fullPageFormWidth: "90%"
+    fullPageFormWidth: "90%",
   },
   spacing: {
     default: "10px",
     borderRadius: "4px",
     border: "1px",
-    large: "50px"
+    large: "50px",
   },
   font: {
     small: "12px",
-    medium: "14px"
-  }
+    medium: "14px",
+  },
 };
 
 export const GlobalStyle = createGlobalStyle`
