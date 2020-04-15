@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+// import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
@@ -13,23 +14,24 @@ import * as serviceWorker from "./serviceWorker";
 
 import "modern-normalize/modern-normalize.css";
 
-const isProduction = process.env.NODE_ENV === "production";
+// const isProduction = process.env.NODE_ENV === "production";
 // const APi = "http://localhost:9000";
-const API = "://localhost:4000/";
+const API = "http://localhost:9001";
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: `${
-    isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
-  }/.netlify/functions/graphql`
+  // uri: `${
+  //   isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
+  // }/.netlify/functions/graphql`
+  uri: API,
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws${API}graphql`,
+  uri: `ws://localhost:4000/graphql`,
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
 // using the ability to split links, you can send data to each link
@@ -58,10 +60,16 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    link
+    link,
   ]),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
+
+// const client = new ApolloClient({
+//   // uri: `${API}/.netlify/functions/graphql`,
+//   uri: API,
+//   cache: new InMemoryCache()
+// });
 
 ReactDOM.render(
   <ApolloProvider client={client}>

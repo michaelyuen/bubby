@@ -24,7 +24,7 @@ let lastMessage = "";
 const Chat: React.FC = () => {
   const [name, setName] = useState("bubby");
   const [messages, setMessages] = useState([
-    { author: "Admin", message: "Don't be shy, say something!" }
+    { author: "Admin", message: "Don't be shy, say something!" },
   ]);
   const { data, error } = useSubscription(MESSAGES_SUBSCRIPTION);
 
@@ -34,13 +34,12 @@ const Chat: React.FC = () => {
 
   if (data?.messageAdded && data.messageAdded.message !== lastMessage) {
     const { author, message } = data.messageAdded;
-    console.log(author, message);
     setMessages([...messages, ...[{ author, message }]]);
     lastMessage = message;
   }
 
   const onChange = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => setName(value);
 
   const renderMessages = () => {
@@ -51,10 +50,9 @@ const Chat: React.FC = () => {
 
   return (
     <ChatContainer className="ChatContainer">
-      <h1>What's yo name?</h1>
       <Input
         onChange={onChange}
-        placeholder="cough it up..."
+        placeholder="What's yo name? Cough it up."
         style={{ width: "200px", marginBottom: "40px" }}
       />
       <article className="ChatContainer__message-container">
@@ -82,10 +80,8 @@ const InputContainer: React.FC<Props> = ({ name }) => {
   const [value, setValue] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
-  console.log(name);
-
   const onChange = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>): void => setValue(value);
 
   const onKeyPress = ({ key }: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -102,7 +98,7 @@ const InputContainer: React.FC<Props> = ({ name }) => {
 
   const onSend = (value: string): void => {
     sendMessage({
-      variables: { author: name, message: value }
+      variables: { author: name, message: value },
     }).catch(noop);
   };
 
