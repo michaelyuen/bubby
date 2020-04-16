@@ -25,8 +25,8 @@ const config = {
     test: ""
   },
   ws: {
-    development: "ws://bubby-messaging-server.herokuapp.com/graphql",
-    production: "ws://bubby-messaging-server.herokuapp.com",
+    development: "ws://bubby-gateway-server.herokuapp.com/graphql",
+    production: "ws://bubby-gateway-server.herokuapp.com/graphql",
     test: ""
   }
 };
@@ -40,12 +40,12 @@ const httpLink = new HttpLink({
 });
 
 // Create a WebSocket link:
-// const wsLink = new WebSocketLink({
-//   uri: config.ws[environment],
-//   options: {
-//     reconnect: true
-//   }
-// });
+const wsLink = new WebSocketLink({
+  uri: config.ws[environment],
+  options: {
+    reconnect: true
+  }
+});
 
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
@@ -73,7 +73,7 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    httpLink
+    link
   ]),
   cache: new InMemoryCache()
 });
