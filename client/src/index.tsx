@@ -14,40 +14,53 @@ import * as serviceWorker from "./serviceWorker";
 
 import "modern-normalize/modern-normalize.css";
 
-// const isProduction = process.env.NODE_ENV === "production";
-// const APi = "http://localhost:9000";
-const API = "http://localhost:9001";
+const environment = process.env.NODE_ENV;
+
+console.log(environment);
+
+const config = {
+  http: {
+    development: "https://bubby-gateway-server.herokuapp.com",
+    production: "https://bubby-gateway-server.herokuapp.com",
+    test: ""
+  },
+  ws: {
+    development: "ws://bubby-messaging-server.herokuapp.com/graphql",
+    production: "ws://bubby-messaging-server.herokuapp.com",
+    test: ""
+  }
+};
 
 // Create an http link:
 const httpLink = new HttpLink({
   // uri: `${
   //   isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
   // }/.netlify/functions/graphql`
-  uri: API,
+  uri: config.http[environment]
 });
 
 // Create a WebSocket link:
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
-  options: {
-    reconnect: true,
-  },
-});
+// const wsLink = new WebSocketLink({
+//   uri: config.ws[environment],
+//   options: {
+//     reconnect: true
+//   }
+// });
 
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
-    );
-  },
-  wsLink,
-  httpLink
-);
+// const link = split(
+//   // split based on operation type
+//   ({ query }) => {
+//     const definition = getMainDefinition(query);
+//     return (
+//       definition.kind === "OperationDefinition" &&
+//       definition.operation === "subscription"
+//     );
+//   },
+//   wsLink,
+//   httpLink
+// );
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -60,9 +73,9 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    link,
+    httpLink
   ]),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 // const client = new ApolloClient({

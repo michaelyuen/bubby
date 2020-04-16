@@ -71,5 +71,3 @@ exports.handler = server.createHandler({
     credentials: true,
   },
 });
-
-exports.shared = { dataSources, context };
