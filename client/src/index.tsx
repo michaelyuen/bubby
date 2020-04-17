@@ -26,7 +26,7 @@ const config = {
   },
   ws: {
     development: "ws://bubby-gateway-server.herokuapp.com/graphql",
-    production: "ws://bubby-gateway-server.herokuapp.com/graphql",
+    production: "wss://bubby-gateway-server.herokuapp.com/graphql",
     test: ""
   }
 };
