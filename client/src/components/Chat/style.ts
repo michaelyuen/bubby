@@ -9,6 +9,7 @@ const ChatContainer = styled.div`
   padding: 25px;
   flex-direction: column;
   justify-content: space-between;
+  overflow: auto;
   display: flex;
 
   @media (min-width: 768px) {
