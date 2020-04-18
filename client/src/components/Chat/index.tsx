@@ -29,6 +29,7 @@ const Chat: React.FC = () => {
   const { data, error } = useSubscription(MESSAGES_SUBSCRIPTION);
 
   if (error) {
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20544
     return <>"you broke it you buy it!"</>;
   }
 

@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import ApolloClient, { InMemoryCache } from "apollo-boost";
-import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink, split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { ApolloLink, split } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -14,43 +13,41 @@ import * as serviceWorker from "./serviceWorker";
 
 import "modern-normalize/modern-normalize.css";
 
-const environment = process.env.NODE_ENV;
-
-console.log(environment);
+// TODO: find a better way to do with without TS complaining
+const env =
+  process.env.NODE_ENV === "test"
+    ? "test"
+    : process.env.NODE_ENV === "production"
+    ? "production"
+    : "development";
 
 const config = {
   http: {
-    development: "https://bubby-gateway-server.herokuapp.com",
+    development: "http://localhost:9001",
     production: "https://bubby-gateway-server.herokuapp.com",
     test: ""
   },
   ws: {
-    development: "ws://bubby-gateway-server.herokuapp.com/graphql",
+    development: "ws://localhost:9001/graphql",
     production: "wss://bubby-gateway-server.herokuapp.com/graphql",
     test: ""
   }
 };
 
-// Create an http link:
+type Config = typeof config;
+
 const httpLink = new HttpLink({
-  // uri: `${
-  //   isProduction ? "https://bubby-apollo.netlify.com" : `http${API}`
-  // }/.netlify/functions/graphql`
-  uri: config.http[environment]
+  uri: config.http[env]
 });
 
-// Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: config.ws[environment],
+  uri: config.ws[env],
   options: {
     reconnect: true
   }
 });
 
-// using the ability to split links, you can send data to each link
-// depending on what kind of operation is being sent
 const link = split(
-  // split based on operation type
   ({ query }) => {
     const definition = getMainDefinition(query);
     return (
@@ -77,12 +74,6 @@ const client = new ApolloClient({
   ]),
   cache: new InMemoryCache()
 });
-
-// const client = new ApolloClient({
-//   // uri: `${API}/.netlify/functions/graphql`,
-//   uri: API,
-//   cache: new InMemoryCache()
-// });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
