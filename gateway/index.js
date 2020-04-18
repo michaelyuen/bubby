@@ -1,60 +1,66 @@
-const ws = require("ws");
-const { ApolloLink, split } = require("apollo-link");
 const { ApolloServer } = require("apollo-server");
+const { split } = require("apollo-link");
 const { HttpLink } = require("apollo-link-http");
 const { WebSocketLink } = require("apollo-link-ws");
 const { getMainDefinition } = require("apollo-utilities");
-const fetch = require("node-fetch");
 const {
   introspectSchema,
   makeRemoteExecutableSchema,
   mergeSchemas,
 } = require("graphql-tools");
+const fetch = require("node-fetch");
+const webSocketImpl = require("ws");
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const serverBaseUrl = isProduction
-  ? "https://bubby-apollo.netlify.com"
+  ? "https://bubby-server.netlify.app"
   : `http://localhost:9000`;
+
+const messagesBaseUrl = isProduction
+  ? "https://bubby-messaging-server.herokuapp.com"
+  : `http://localhost:4000`;
+
+const messagesWsBaseUrl = isProduction
+  ? "wss://bubby-messaging-server.herokuapp.com/graphql"
+  : `ws://localhost:4000/graphql`;
 
 const serverLink = new HttpLink({
   uri: `${serverBaseUrl}/.netlify/functions/graphql`,
   fetch,
 });
 
-const messagesLink = new HttpLink({
-  uri: `http://localhost:4000`,
+const messagesHttpLink = new HttpLink({
+  uri: messagesBaseUrl,
   fetch,
 });
 
-// const messagesWsLink = new WebSocketLink({
-//   uri: `ws://localhost:4000/graphql`,
-//   options: {
-//     reconnect: true,
-//   },
-//   webSocketImpl: ws,
-// });
+const wsLink = new WebSocketLink({
+  uri: messagesWsBaseUrl,
+  options: {
+    reconnect: true,
+  },
+  webSocketImpl,
+});
 
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
-// const messagesLink = split(
-//   // split based on operation type
-//   ({ query }) => {
-//     const definition = getMainDefinition(query);
-//     console.log(definition);
-//     return (
-//       definition.kind === "OperationDefinition" &&
-//       definition.operation === "subscription"
-//     );
-//   },
-//   messagesWsLink,
-//   messagesHttpLink
-// );
+const messagesLink = split(
+  // split based on operation type
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  messagesHttpLink
+);
 
-async function startServer() {
+async function makeSchema() {
   const serverSchema = await introspectSchema(serverLink);
   const messagesSchema = await introspectSchema(messagesLink);
-  //const messagesWsSchema = await introspectSchema(messagesWsLink);
 
   const serverExecutableSchema = makeRemoteExecutableSchema({
     schema: serverSchema,
@@ -66,22 +72,17 @@ async function startServer() {
     link: messagesLink,
   });
 
-  // const messagesWsExecutableSchema = makeRemoteExecutableSchema({
-  //   schema: messagesWsSchema,
-  //   link: messagesWsLink,
-  // });
-
-  const schema = mergeSchemas({
-    schemas: [
-      serverExecutableSchema,
-      messagesExecutableSchema,
-      // messagesWsExecutableSchema,
-    ],
+  return mergeSchemas({
+    schemas: [serverExecutableSchema, messagesExecutableSchema],
   });
-  const server = new ApolloServer({ schema });
-  return server.listen({ port: 9001 });
 }
 
-startServer().then(({ url }) => {
-  console.log(`Gateway ready at ${url} 🏛️`);
+makeSchema().then(async (schema) => {
+  const server = new ApolloServer({
+    schema,
+    introspection: true,
+    playground: true,
+  });
+  const { url } = await server.listen({ port: process.env.PORT || 9001 });
+  console.log(`🏛️  Gateway ready at ${url}`);
 });

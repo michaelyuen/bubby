@@ -22,13 +22,13 @@ const MESSAGES_SUBSCRIPTION = gql`
 `;
 let lastMessage = "";
 const Chat: React.FC = () => {
-  const [name, setName] = useState("bubby");
   const [messages, setMessages] = useState([
     { author: "Admin", message: "Don't be shy, say something!" }
   ]);
   const { data, error } = useSubscription(MESSAGES_SUBSCRIPTION);
 
   if (error) {
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20544
     return <>"you broke it you buy it!"</>;
   }
 
@@ -38,10 +38,6 @@ const Chat: React.FC = () => {
     lastMessage = message;
   }
 
-  const onChange = ({
-    target: { value }
-  }: React.ChangeEvent<HTMLInputElement>) => setName(value);
-
   const renderMessages = () => {
     return messages.map(({ author, message }: Message, i) => (
       <Message author={author} key={i} message={message} />
@@ -50,12 +46,10 @@ const Chat: React.FC = () => {
 
   return (
     <ChatContainer className="ChatContainer">
-      <div>
-        <article className="ChatContainer__message-container">
-          {renderMessages()}
-        </article>
-      </div>
-      <MemoInputContainer name={name} />
+      <article className="ChatContainer__message-container">
+        {renderMessages()}
+      </article>
+      <MemoInputContainer />
     </ChatContainer>
   );
 };
@@ -69,11 +63,7 @@ const SEND_MESSAGE = gql`
   }
 `;
 
-type Props = {
-  name: string;
-};
-
-const InputContainer: React.FC<Props> = ({ name }) => {
+const InputContainer: React.FC = () => {
   const [value, setValue] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
@@ -96,7 +86,7 @@ const InputContainer: React.FC<Props> = ({ name }) => {
   const onSend = (value: string): void => {
     setValue("");
     sendMessage({
-      variables: { author: name, message: value }
+      variables: { author: "bubby", message: value }
     }).catch(noop);
   };
 
