@@ -22,8 +22,9 @@ const MESSAGES_SUBSCRIPTION = gql`
 `;
 let lastMessage = "";
 const Chat: React.FC = () => {
+  const [name, setName] = useState("bubby");
   const [messages, setMessages] = useState([
-    { author: "Admin", message: "Don't be shy, say something!" }
+    { author: "Admin", message: "Don't be shy, say something!" },
   ]);
   const { data, error } = useSubscription(MESSAGES_SUBSCRIPTION);
 
@@ -38,6 +39,10 @@ const Chat: React.FC = () => {
     lastMessage = message;
   }
 
+  const onChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => setName(value || "bubby");
+
   const renderMessages = () => {
     return messages.map(({ author, message }: Message, i) => (
       <Message author={author} key={i} message={message} />
@@ -47,9 +52,14 @@ const Chat: React.FC = () => {
   return (
     <ChatContainer className="ChatContainer">
       <article className="ChatContainer__message-container">
+        <Input
+          onChange={onChange}
+          placeholder="What's yo name? Cough it up."
+          style={{ width: "200px", marginBottom: "40px" }}
+        />
         {renderMessages()}
       </article>
-      <MemoInputContainer />
+      <MemoInputContainer name={name} />
     </ChatContainer>
   );
 };
@@ -63,12 +73,16 @@ const SEND_MESSAGE = gql`
   }
 `;
 
-const InputContainer: React.FC = () => {
+type Props = {
+  name: string;
+};
+
+const InputContainer: React.FC<Props> = ({ name }) => {
   const [value, setValue] = useState("");
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
   const onChange = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>): void => setValue(value);
 
   const onKeyPress = ({ key }: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -86,7 +100,7 @@ const InputContainer: React.FC = () => {
   const onSend = (value: string): void => {
     setValue("");
     sendMessage({
-      variables: { author: "bubby", message: value }
+      variables: { author: name, message: value },
     }).catch(noop);
   };
 
