@@ -63,7 +63,9 @@ typings/
 .env.test
 
 # result of build for netlify functions
-server/dist
+server/
+server-ws/dist
+gateway/dist
 
 # Firebase admin
 service-account-file.json

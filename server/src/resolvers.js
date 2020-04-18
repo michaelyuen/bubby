@@ -7,8 +7,11 @@ const resolvers = {
       const customToken = await firebaseAdmin.getCustomToken();
       return firebaseClient.sendEmailVerification(customToken);
     },
-    sendPasswordResetEmail: async (_, { email }) =>
-      firebaseClient.sendPasswordResetEmail(email),
+    sendPasswordResetEmail: async (
+      _,
+      { email },
+      { dataSources: { firebaseClient } }
+    ) => firebaseClient.sendPasswordResetEmail(email),
     messages: async (_, args, { dataSources: { firebaseClient } }) => {
       return firebaseClient.getMessages();
     },

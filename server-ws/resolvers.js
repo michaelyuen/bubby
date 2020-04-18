@@ -11,9 +11,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    addMessage: async (_, args, { dataSources: { firebaseAdmin } }) => {
+    addMessage: async (_, args) => {
       pubsub.publish(MESSAGE_ADDED, { [MESSAGE_ADDED]: args });
-      // return firebaseAdmin.addMessage(args);
     },
   },
 };

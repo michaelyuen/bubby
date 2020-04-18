@@ -92,6 +92,7 @@ const InputContainer: React.FC<Props> = ({ name }) => {
   };
 
   const onSend = (value: string): void => {
+    setValue("");
     sendMessage({
       variables: { author: name, message: value }
     }).catch(noop);

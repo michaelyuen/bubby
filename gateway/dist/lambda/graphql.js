@@ -93,17 +93,21 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+// const ws = require("ws");
+// const { ApolloLink, split } = require("apollo-link");
+// const { ApolloServer } = require("apollo-server");
+const express = __webpack_require__(/*! express */ "express"); // const { ApolloServer } = require("apollo-server-express");
+
+
 const {
   ApolloServer
 } = __webpack_require__(/*! apollo-server-lambda */ "apollo-server-lambda");
 
 const {
   HttpLink
-} = __webpack_require__(/*! apollo-link-http */ "apollo-link-http");
+} = __webpack_require__(/*! apollo-link-http */ "apollo-link-http"); // const { WebSocketLink } = require("apollo-link-ws");
+// const { getMainDefinition } = require("apollo-utilities");
 
-const {
-  WebSocketLink
-} = __webpack_require__(/*! apollo-link-ws */ "apollo-link-ws");
 
 const fetch = __webpack_require__(/*! node-fetch */ "node-fetch");
 
@@ -113,27 +117,44 @@ const {
   mergeSchemas
 } = __webpack_require__(/*! graphql-tools */ "graphql-tools");
 
+const app = express();
 const isProduction = "development" === "production";
-const serverBaseUrl = isProduction ? "https://bubby-apollo.netlify.com" : `http://localhost:9000`;
+const serverBaseUrl = isProduction ? "https://bubby-server.netlify.com" : `http://localhost:9000`;
+const messagesBaseUrl = isProduction ? "https://limitless-stream-50260.herokuapp.com/" : `http://localhost:4000`;
 const serverLink = new HttpLink({
   uri: `${serverBaseUrl}/.netlify/functions/graphql`,
   fetch
 });
 const messagesLink = new HttpLink({
-  uri: `http://localhost:4000`,
+  uri: messagesBaseUrl,
   fetch
-});
-const messagesWsLink = new WebSocketLink({
-  uri: `http://localhost:4000/graphql`,
-  options: {
-    reconnect: true
-  }
-});
+}); // const messagesWsLink = new WebSocketLink({
+//   uri: `ws://localhost:4000/graphql`,
+//   options: {
+//     reconnect: true,
+//   },
+//   webSocketImpl: ws,
+// });
+// using the ability to split links, you can send data to each link
+// depending on what kind of operation is being sent
+// const messagesLink = split(
+//   // split based on operation type
+//   ({ query }) => {
+//     const definition = getMainDefinition(query);
+//     console.log(definition);
+//     return (
+//       definition.kind === "OperationDefinition" &&
+//       definition.operation === "subscription"
+//     );
+//   },
+//   messagesWsLink,
+//   messagesHttpLink
+// );
 
-async function makeSchemas() {
+const createSchema = async () => {
   const serverSchema = await introspectSchema(serverLink);
-  const messagesSchema = await introspectSchema(messagesLink);
-  const messagesWsSchema = await introspectSchema(messagesWsLink);
+  const messagesSchema = await introspectSchema(messagesLink); //const messagesWsSchema = await introspectSchema(messagesWsLink);
+
   const serverExecutableSchema = makeRemoteExecutableSchema({
     schema: serverSchema,
     link: serverLink
@@ -141,26 +162,44 @@ async function makeSchemas() {
   const messagesExecutableSchema = makeRemoteExecutableSchema({
     schema: messagesSchema,
     link: messagesLink
-  });
-  const messagesWsExecutableSchema = makeRemoteExecutableSchema({
-    schema: messagesWsSchema,
-    link: messagesWsLink
-  });
-  const schema = mergeSchemas({
-    schemas: [serverExecutableSchema, messagesExecutableSchema, messagesWsExecutableSchema]
-  });
-  return schema;
-}
+  }); // const messagesWsExecutableSchema = makeRemoteExecutableSchema({
+  //   schema: messagesWsSchema,
+  //   link: messagesWsLink,
+  // });
 
-const schema = makeSchemas();
-const server = new ApolloServer({
-  schema
+  const schema = mergeSchemas({
+    schemas: [serverExecutableSchema, messagesExecutableSchema // messagesWsExecutableSchema,
+    ]
+  }); // return schema;
+  // const server = new ApolloServer({
+  //   schema,
+  //   // TODO: Make these ENV specific
+  //   playground: true,
+  //   introspection: true,
+  // });
+  // return server.listen({ port: 9001 });
+  // return server.createHandler({
+  //   cors: {
+  //     origin: "*",
+  //     credentials: true,
+  //   },
+  // });
+};
+
+createSchema().then(schema => {
+  const server = new ApolloServer({
+    schema,
+    playground: true,
+    introspection: true
+  });
+  server.applyMiddleware({
+    app
+  });
+  console.log(`🚀 Server ready at ${server.graphqlPath}`);
 });
-server.listen().then(({
-  url
-}) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+module.exports = app; // startServer().then(({ url }) => {
+//   console.log(`Gateway ready at ${url} 🏛️`);
+// });
 
 /***/ }),
 
@@ -175,17 +214,6 @@ module.exports = require("apollo-link-http");
 
 /***/ }),
 
-/***/ "apollo-link-ws":
-/*!*********************************!*\
-  !*** external "apollo-link-ws" ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-link-ws");
-
-/***/ }),
-
 /***/ "apollo-server-lambda":
 /*!***************************************!*\
   !*** external "apollo-server-lambda" ***!
@@ -194,6 +222,17 @@ module.exports = require("apollo-link-ws");
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-server-lambda");
+
+/***/ }),
+
+/***/ "express":
+/*!**************************!*\
+  !*** external "express" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
 
 /***/ }),
 
