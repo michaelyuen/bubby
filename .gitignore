@@ -70,4 +70,5 @@ gateway/dist
 # Firebase admin
 service-account-file.json
 
+client/.next
 client/build

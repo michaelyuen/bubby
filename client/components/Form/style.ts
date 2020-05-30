@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { spacingDefault, fontSmall } from "style/themeFunctions";
+import { spacingDefault, fontSmall } from "../../style/themeFunctions";
 
 export const FormContainer = styled.form`
   a {

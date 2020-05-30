@@ -4,8 +4,8 @@ import {
   gridFullPageFormWidth,
   themeSpacingLarge,
   gridWidth,
-  gridMaxWidth
-} from "style/themeFunctions";
+  gridMaxWidth,
+} from "../../style/themeFunctions";
 
 export const LayoutSmall = styled.div`
   margin: ${themeSpacingLarge} auto ${spacingDefault};

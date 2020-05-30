@@ -13,10 +13,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "typeRoots": ["./styled"],
     "baseUrl": "src"
   },
-  "include": ["src"],
+  "include": ["src", "components/Form", "components/Copyright"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

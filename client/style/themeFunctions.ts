@@ -1,12 +1,33 @@
-import { DefaultTheme } from "styled-components";
+export type Theme = {
+  color: {
+    background: String;
+    buttonText: String;
+    link: String;
+    secondary: String;
+    text: String;
+  };
+  font: {
+    medium: String;
+    small: String;
+  };
+  grid: {
+    fullPageFormWidth: String;
+    maxWidth: String;
+    width: String;
+  };
+  spacing: {
+    border: String;
+    borderRadius: String;
+    default: String;
+    large: String;
+  };
+};
 
 interface Props {
-  theme: DefaultTheme;
+  theme: Theme;
 }
 
 export const colorBackground = (props: Props) => props.theme.color.background;
-export const colorBackgroundDarkMode = (props: Props) =>
-  props.theme.color.colorBackgroundDarkMode;
 export const colorButtonText = (props: Props) => props.theme.color.buttonText;
 export const colorSecondary = (props: Props) => props.theme.color.secondary;
 export const colorLink = (props: Props) => props.theme.color.link;
