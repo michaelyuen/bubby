@@ -1,0 +1,24 @@
+{
+  "name": "bubby",
+  "version": "0.1.0",
+  "description": "Bubby",
+  "keywords": [
+    "apollo",
+    "bubby",
+    "chat",
+    "graphql-subscriptions",
+    "graphql"
+  ],
+  "license": "MIT",
+  "contributors": [
+    "Sue Ann Ioanis <sueann.ioanis@gmail.com>",
+    "Michael Yuen <iam@mikey.baby>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tumfoodery/bubby.git"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
