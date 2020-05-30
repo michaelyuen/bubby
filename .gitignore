@@ -71,4 +71,3 @@ gateway/dist
 service-account-file.json
 
 client/.next
-client/build
