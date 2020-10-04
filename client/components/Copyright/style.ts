@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontSmall, spacingDefault } from "style/themeFunctions";
+import { fontSmall, spacingDefault } from "../../style/themeFunctions";
 
 export const CopyrightContainer = styled.footer`
   font-size: ${fontSmall};

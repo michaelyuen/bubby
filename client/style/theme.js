@@ -1,11 +1,11 @@
-import { DefaultTheme, createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { colorText, colorBackground, colorLink } from "./themeFunctions";
 
 const darkMode = false;
 // window.matchMedia &&
 // window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-export const theme: DefaultTheme = {
+export const theme = {
   color: {
     background: darkMode ? "#282c34" : "#FFFFFF",
     link: "#000",

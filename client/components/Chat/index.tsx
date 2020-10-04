@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation, useSubscription } from "@apollo/react-hooks";
-import Input from "components/Input";
-import Button from "components/Button";
-import Message from "components/Message";
-import { noop } from "utils/fn";
+import Input from "../Input";
+import Button from "../Button";
+import Message from "../Message";
+import { noop } from "../../utils/fn";
 import ChatContainer from "./style";
 
 type Message = {

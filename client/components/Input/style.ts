@@ -4,7 +4,7 @@ import {
   colorBackground,
   colorText,
   fontMedium,
-} from "style/themeFunctions";
+} from "../../style/themeFunctions";
 
 export const InputContainer = styled.label`
   font-size: ${fontMedium};

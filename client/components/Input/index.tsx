@@ -1,5 +1,5 @@
 import React from "react";
-import { noop } from "utils/fn";
+import { noop } from "../../utils/fn";
 import { InputContainer } from "./style";
 
 interface Props {
